@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from '@/context/AuthContext';
 import { cn } from "@/lib/utils";
 import { Newspaper, Play, BookOpen, Settings, LogIn, User } from "lucide-react";
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -17,7 +18,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/" className="text-xl font-bold text-primary flex items-center gap-2">
-            <span className="hidden sm:inline">ChatBot Portal</span>
+            <span className="hidden sm:inline">AskLegal.io</span>
           </Link>
         </div>
 
@@ -79,6 +80,8 @@ const Navbar = () => {
             </>
           )}
           
+          <ThemeToggle />
+
           <div className="ml-4">
             {user ? (
               <Button variant="outline" onClick={logout}>Logout</Button>
