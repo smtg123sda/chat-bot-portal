@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -7,6 +7,8 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from '@/context/AuthContext';
+
+const THEME_STORAGE_KEY = "theme";
 
 const Settings = () => {
   const { user } = useAuth();
@@ -16,6 +18,12 @@ const Settings = () => {
   const [email, setEmail] = useState(user?.email || '');
   const [notificationEnabled, setNotificationEnabled] = useState(true);
   const [darkModeEnabled, setDarkModeEnabled] = useState(false);
+  
+  // Initialize darkModeEnabled based on stored theme
+  useEffect(() => {
+    const stored = localStorage.getItem(THEME_STORAGE_KEY);
+    setDarkModeEnabled(stored === "dark");
+  }, []);
   
   const handleSaveProfile = () => {
     toast({
@@ -29,6 +37,14 @@ const Settings = () => {
       title: "Password updated",
       description: "Your password has been changed successfully."
     });
+  };
+
+  // Handle dark mode toggle
+  const handleDarkModeToggle = (checked: boolean) => {
+    setDarkModeEnabled(checked);
+    const newTheme = checked ? "dark" : "light";
+    localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+    document.documentElement.classList.toggle('dark', checked);
   };
 
   return (
@@ -113,7 +129,7 @@ const Settings = () => {
               </div>
               <Switch 
                 checked={darkModeEnabled}
-                onCheckedChange={setDarkModeEnabled}
+                onCheckedChange={handleDarkModeToggle}
               />
             </div>
           </CardContent>

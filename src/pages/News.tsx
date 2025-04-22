@@ -1,6 +1,8 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { ExternalLink } from 'lucide-react';
 
 // Mock news data fallback
 const MOCK_NEWS = [
@@ -9,21 +11,24 @@ const MOCK_NEWS = [
     title: 'New Advancements in AI Technology',
     summary: 'Researchers have made significant breakthroughs in artificial intelligence, enabling more natural language processing capabilities.',
     source: 'Tech News',
-    date: '2025-04-21'
+    date: '2025-04-21',
+    url: 'https://technews.com/ai-advancements'
   },
   {
     id: '2',
     title: 'Climate Change Summit Concludes with New Agreements',
     summary: 'World leaders have agreed to new measures to combat climate change at the latest international summit.',
     source: 'Global News',
-    date: '2025-04-20'
+    date: '2025-04-20',
+    url: 'https://globalnews.com/climate-summit'
   },
   {
     id: '3',
     title: 'Educational Technology Shows Promising Results',
     summary: 'Recent studies show that new educational technology tools are improving student engagement and learning outcomes.',
     source: 'Education Weekly',
-    date: '2025-04-19'
+    date: '2025-04-19',
+    url: 'https://educationweekly.com/edtech-results'
   }
 ];
 
@@ -33,6 +38,7 @@ interface NewsItem {
   summary: string;
   source: string;
   date: string;
+  url?: string;
 }
 
 async function fetchNewsFromSite(url: string): Promise<NewsItem[]> {
@@ -47,6 +53,7 @@ async function fetchNewsFromSite(url: string): Promise<NewsItem[]> {
         summary: "प्रधानमन्त्री तथा अर्थमन्त्रीले संसदमा बजेट प्रस्तुत गरे। सर्वोच्चले बजेटप्रति उठेका प्रश्नमा सरकारसँग जवाफ मागेको छ।",
         source: "onlinekhabar.com",
         date: new Date().toISOString().slice(0, 10),
+        url: "https://www.onlinekhabar.com"
       },
       {
         id: 'ok2',
@@ -54,6 +61,7 @@ async function fetchNewsFromSite(url: string): Promise<NewsItem[]> {
         summary: "नेपालका केही स्थानमा आज आंशिकदेखि सामान्य वर्षा भइरहेको छ।",
         source: "onlinekhabar.com",
         date: new Date().toISOString().slice(0, 10),
+        url: "https://www.onlinekhabar.com"
       }
     ];
   } else if (url.includes("setopati")) {
@@ -64,6 +72,7 @@ async function fetchNewsFromSite(url: string): Promise<NewsItem[]> {
         summary: "सरकारले नयाँ संविधान संशोधन प्रस्ताव प्रस्तुत गरेको छ, जसमा विभिन्न राजनीतिक दलहरूको मतभिन्नता देखिएको छ।",
         source: "setopati.com",
         date: new Date().toISOString().slice(0, 10),
+        url: "https://www.setopati.com"
       },
       {
         id: "seto2",
@@ -71,6 +80,7 @@ async function fetchNewsFromSite(url: string): Promise<NewsItem[]> {
         summary: "सरकारी प्रयासले नेपालका केही शहरमा खानेपानीको समस्या केही हदसम्म कम भएको छ।",
         source: "setopati.com",
         date: new Date().toISOString().slice(0, 10),
+        url: "https://www.setopati.com"
       }
     ];
   }
@@ -113,6 +123,13 @@ const News = () => {
     };
   }, []);
 
+  // Function to handle the Read More button click
+  const handleReadMore = (url?: string) => {
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6">Latest News</h1>
@@ -131,7 +148,15 @@ const News = () => {
               <p>{item.summary}</p>
             </CardContent>
             <CardFooter>
-              <Button variant="outline" size="sm">Read More</Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => handleReadMore(item.url)}
+                className="flex items-center gap-2"
+              >
+                Read More
+                <ExternalLink size={16} />
+              </Button>
             </CardFooter>
           </Card>
         ))}
