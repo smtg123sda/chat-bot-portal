@@ -93,7 +93,7 @@ const UsersList = () => {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <Badge variant={user.status === 'active' ? "success" : "secondary"}>
+                  <Badge variant={user.status === 'active' ? "default" : "secondary"}>
                     {user.status}
                   </Badge>
                 </TableCell>
