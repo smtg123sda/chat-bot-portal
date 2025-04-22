@@ -16,7 +16,7 @@ const ChatMessage = ({ content, isUser, timestamp }: ChatMessageProps) => {
     )}>
       <div className="flex flex-col">
         <div className="text-sm mb-1">
-          {isUser ? 'You' : 'ChatBot'} • {timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+          {isUser ? 'You' : 'AskLegal'} • {timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
         </div>
         <div>{content}</div>
       </div>
@@ -25,3 +25,4 @@ const ChatMessage = ({ content, isUser, timestamp }: ChatMessageProps) => {
 };
 
 export default ChatMessage;
+

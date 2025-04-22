@@ -15,8 +15,8 @@ interface Message {
 }
 
 const welcomeMessages = [
-  "Hello! Welcome to ChatBot Portal. How can I help you today?",
-  "You can explore news, play games, or learn new things after you log in!"
+  "Hello! Welcome to AskLegal.io. I'm AskLegal, your interactive legal assistant. How can I help you today?",
+  "I provide legal information, latest news, and let you test your legal knowledge! Please log in to get started."
 ];
 
 const Index = () => {
@@ -97,9 +97,12 @@ const Index = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">Welcome to ChatBot Portal</h1>
-        <p className="text-lg text-muted-foreground mb-6">Your interactive learning and gaming platform</p>
-        
+        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+          Welcome to AskLegal.io
+        </h1>
+        <p className="text-lg text-muted-foreground mb-6">
+          Your interactive legal solution
+        </p>
         {!user && (
           <div className="flex justify-center gap-4 mb-8">
             <Link to="/login">
@@ -114,9 +117,9 @@ const Index = () => {
 
       <Card className="shadow-lg border-2 border-accent/50">
         <CardHeader>
-          <CardTitle>Chat with our Bot</CardTitle>
+          <CardTitle>Chat with AskLegal</CardTitle>
           <CardDescription>
-            Ask questions or get help navigating the portal
+            Ask legal questions or get help navigating AskLegal.io
           </CardDescription>
         </CardHeader>
         <CardContent className="h-[50vh] overflow-y-auto flex flex-col">
@@ -152,7 +155,7 @@ const Index = () => {
             <CardTitle>Latest News</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Stay updated with the latest news and updates.</p>
+            <p>Stay updated with the latest legal news and updates.</p>
           </CardContent>
           <CardFooter>
             {user ? (
@@ -172,7 +175,7 @@ const Index = () => {
             <CardTitle>Play Games</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Test your knowledge with fun MCQ games.</p>
+            <p>Test your legal knowledge with fun MCQ games.</p>
           </CardContent>
           <CardFooter>
             {user ? (
@@ -192,7 +195,7 @@ const Index = () => {
             <CardTitle>Learn</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Explore our learning resources and tutorials.</p>
+            <p>Explore our legal learning resources and tutorials.</p>
           </CardContent>
           <CardFooter>
             {user ? (

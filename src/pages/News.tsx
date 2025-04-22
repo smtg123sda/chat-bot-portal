@@ -1,7 +1,6 @@
-
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 // Mock news data fallback
 const MOCK_NEWS = [
@@ -87,17 +86,14 @@ const News = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [news, setNews] = useState<NewsItem[]>(MOCK_NEWS);
   const [error, setError] = useState<string | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleScrapeNews = async () => {
+  const fetchAllNews = async () => {
     setIsLoading(true);
     setError(null);
-    setNews([]);
+    let allNews: NewsItem[] = [];
     try {
-      let allNews: NewsItem[] = [];
       for (let url of FETCH_SITES) {
-        // Here you would actually use a backend or Firecrawl for real scraping
-        // For now, use local mock as per system guidelines
-        // You can later replace with Firecrawl API when set up
         const siteNews = await fetchNewsFromSite(url);
         allNews = allNews.concat(siteNews);
       }
@@ -109,32 +105,19 @@ const News = () => {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    fetchAllNews();
+    timerRef.current = setInterval(fetchAllNews, 10 * 60 * 1000);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
+
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6">Latest News</h1>
-      
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle>Scrape News</CardTitle>
-          <CardDescription>
-            Scrape latest news from: 
-            <span className="ml-2 inline-flex items-center gap-2 text-sm text-muted-foreground">
-              onlinekhabar.com &nbsp;|&nbsp; setopati.com
-            </span>
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Button 
-            onClick={handleScrapeNews} 
-            disabled={isLoading}
-          >
-            {isLoading ? "Scraping..." : "Scrape"}
-          </Button>
-        </CardContent>
-      </Card>
-
+      {isLoading && <div className="mb-4">Fetching latest legal news...</div>}
       {error && <div className="mb-4 text-red-500">{error}</div>}
-      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {news.map((item) => (
           <Card key={item.id} className="shadow-sm hover:shadow-md transition-shadow">

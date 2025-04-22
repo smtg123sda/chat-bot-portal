@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -111,6 +110,10 @@ const Play = () => {
   return (
     <div className="max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">MCQ Quiz Game</h1>
+
+      <p className="text-lg text-muted-foreground mb-8 text-center">
+        Test your legal knowledge and see how well you know common law, landmark cases, and more!
+      </p>
       
       {!gameOver ? (
         <Card className="shadow-lg border-2 border-accent/50">
