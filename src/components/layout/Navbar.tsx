@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { useAuth } from '@/context/AuthContext';
 import { cn } from "@/lib/utils";
-import { News, Play, BookOpen, Settings, LogIn, User } from "lucide-react";
+import { Newspaper, Play, BookOpen, Settings, LogIn, User } from "lucide-react";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -31,7 +31,7 @@ const Navbar = () => {
                   isActive('/news') && "nav-link-active"
                 )}
               >
-                <News size={18} />
+                <Newspaper size={18} />
                 <span className="hidden sm:inline">News</span>
               </Link>
               <Link 
